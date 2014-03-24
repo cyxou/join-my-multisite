@@ -29,10 +29,15 @@ $wp_query->is_404 = false;
  *
  * @since MU
  */
+
+	/**
+	 * .mu_register form { margin-top: 2em; }
+	 *
+	 *
+	 */
 ?>
-	<style type="text/css">
+	<!--<style type="text/css">
 		.mu_register { width: 90%; margin:0 auto; }
-		.mu_register form { margin-top: 2em; }
 		.mu_register .error { font-weight:700; padding:10px; color:#333333; background:#FFEBE8; border:1px solid #CC0000; }
 		.mu_register input[type="submit"],
 			.mu_register #blog_title,
@@ -44,8 +49,9 @@ $wp_query->is_404 = false;
 		.mu_register label { font-weight:700; font-size:15px; display:block; margin:10px 0; }
 		.mu_register label.checkbox { display:inline; }
 		.mu_register .mu_alert { font-weight:700; padding:10px; color:#333333; background:#ffffe0; border:1px solid #e6db55; }
-	</style>
+	</style>-->
 <?php
+
 
 /**
  * Fires before the site sign-up form.
@@ -57,7 +63,7 @@ do_action( 'before_signup_form' );
 
 <div id="jmm-content" class="widecolumn">
 <div class="mu_register">
-	
+
 <?php
 /**
  * Display user registration form
@@ -71,19 +77,26 @@ do_action( 'before_signup_form' );
 
 function show_user_form($user_name = '', $user_email = '', $errors = '') {
 	// User name
-	echo '<label for="user_name">' . __('Username:', 'join-my-multisite') . '</label>';
+	echo '<label for="user_name" style="display: none;">' . __('Username:', 'join-my-multisite') . '</label>';
 	if ( $errmsg = $errors->get_error_message('user_name') ) {
 		echo '<p class="error">'.$errmsg.'</p>';
 	}
-	echo '<input name="user_name" type="text" id="user_name" value="'. esc_attr($user_name) .'" maxlength="60" /><br />';
-	_e( '(Must be at least 4 characters, letters and numbers only.)', 'join-my-multisite' );
+	echo '<input name="user_name" type="hidden" id="user_name" value="'. esc_attr($user_name) .'" maxlength="60" />';
+	echo '<p class="helper-text" style="display: none;">', _e( 'Must be at least 4 characters, letters and numbers only.', 'join-my-multisite' ), '</p>';
 	?>
-
+	
 	<label for="user_email"><?php _e( 'Email&nbsp;Address:', 'join-my-multisite' ) ?></label>
 	<?php if ( $errmsg = $errors->get_error_message('user_email') ) { ?>
 		<p class="error"><?php echo $errmsg ?></p>
 	<?php } ?>
 	<input name="user_email" type="text" id="user_email" value="<?php  echo esc_attr($user_email) ?>" maxlength="200" /><br /><?php _e('We send your registration email to this address. (Double-check your email address before continuing.)', 'join-my-multisite') ?>
+	<script>
+		jQuery("#user_email").blur(function() {
+	  	var foo = jQuery(this).val();
+	  	var bar = foo.substring(0, foo.indexOf("@"));
+	  	jQuery("#user_name").val(bar);
+		});
+	</script>
 	<?php
 	if ( $errmsg = $errors->get_error_message('generic') ) {
 		echo '<p class="error">' . $errmsg . '</p>';
@@ -129,7 +142,7 @@ function signup_user($user_name = '', $user_email = '', $errors = '') {
 	        {$goto = get_permalink($jmm_options['perpage']); }
 	    else
 	        {$goto = '/wp-signup.php';}
-	        
+
 	if ( !is_wp_error($errors) )
 		$errors = new WP_Error();
 
@@ -160,7 +173,7 @@ function signup_user($user_name = '', $user_email = '', $errors = '') {
 	$errors = $filtered_results['errors'];
 	?>
 
-	<h2><?php printf( __( 'Create your account on %s', 'join-my-multisite' ), $current_site->site_name ) ?></h2>
+	<h3><?php printf( __( 'Create your account on %s', 'join-my-multisite' ), $current_site->site_name ) ?></h3>
 	<form id="setupform" method="post" action="<?php echo $goto; ?>">
 		<input type="hidden" name="stage" value="validate-user-signup" />
 		<?php
