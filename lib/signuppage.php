@@ -62,7 +62,8 @@ do_action( 'before_signup_form' );
 ?>
 
 <div id="jmm-content" class="widecolumn">
-<div class="mu_register">
+	<div class="mu_register">
+
 
 <?php
 /**
@@ -76,20 +77,14 @@ do_action( 'before_signup_form' );
  */
 
 function show_user_form($user_name = '', $user_email = '', $errors = '') {
-	// User name
-	echo '<label for="user_name" style="display: none;">' . __('Username:', 'join-my-multisite') . '</label>';
-	if ( $errmsg = $errors->get_error_message('user_name') ) {
-		echo '<p class="error">'.$errmsg.'</p>';
-	}
-	echo '<input name="user_name" type="hidden" id="user_name" value="'. esc_attr($user_name) .'" maxlength="60" />';
+	echo '<input name="user_name" type="hidden" id="user_name" placeholder="Логин" value="'. esc_attr($user_name) .'" maxlength="60" />';
 	echo '<p class="helper-text" style="display: none;">', _e( 'Must be at least 4 characters, letters and numbers only.', 'join-my-multisite' ), '</p>';
 	?>
-	
-	<label for="user_email"><?php _e( 'Email&nbsp;Address:', 'join-my-multisite' ) ?></label>
+
 	<?php if ( $errmsg = $errors->get_error_message('user_email') ) { ?>
 		<p class="error"><?php echo $errmsg ?></p>
 	<?php } ?>
-	<input name="user_email" type="text" id="user_email" value="<?php  echo esc_attr($user_email) ?>" maxlength="200" /><br /><?php _e('We send your registration email to this address. (Double-check your email address before continuing.)', 'join-my-multisite') ?>
+	<input name="user_email" type="text" id="user_email" placeholder="Email" value="<?php  echo esc_attr($user_email) ?>" maxlength="200" />
 	<script>
 		jQuery("#user_email").blur(function() {
 	  	var foo = jQuery(this).val();
@@ -172,19 +167,28 @@ function signup_user($user_name = '', $user_email = '', $errors = '') {
 	$user_email = $filtered_results['user_email'];
 	$errors = $filtered_results['errors'];
 	?>
-
-	<h3><?php printf( __( 'Create your account on %s', 'join-my-multisite' ), $current_site->site_name ) ?></h3>
+	<div class="avia_textblock" itemprop="text">
+		<h2><?php printf( __( 'Create your account on %s', 'join-my-multisite' ), $current_site->site_name ) ?></h2>
+	</div>
 	<form id="setupform" method="post" action="<?php echo $goto; ?>">
 		<input type="hidden" name="stage" value="validate-user-signup" />
 		<?php
 		//duplicate_hook
 		do_action( 'signup_hidden_fields', 'validate-user' );
 		?>
-		<?php show_user_form($user_name, $user_email, $errors); ?>
+		<div class="av_promobox avia-button-yes avia-builder-el-16 el_after_av_one_half avia-builder-el-last ">
+			<div class="avia-promocontent">
+				<?php show_user_form($user_name, $user_email, $errors); ?>
+				<input id="signupblog" type="hidden" name="signup_for" value="user" />
+			</div>
+			<div class="avia-button-wrap avia-button-right">
+				<button type="submit" class="avia-button avia-icon_select-yes avia-color-theme-color avia-size-large avia-position-right" style="border: 0px none; font-size: 26px; padding: 0px; margin-top: -16px; margin-bottom: 0px;">
+					<span class="avia_button_icon" data-av_iconfont="entypo-fontello" data-av_icon="" aria-hidden="true" style="padding-left: 14px;"></span>
+				</button>
+			</div>
+		</div>
 
-		<p><input id="signupblog" type="hidden" name="signup_for" value="user" /></p>
 
-		<p class="submit"><input type="submit" name="submit" class="submit" value="<?php esc_attr_e('Signup', 'join-my-multisite') ?>" /></p>
 	</form>
 	<?php
 }
