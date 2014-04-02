@@ -167,16 +167,16 @@ function signup_user($user_name = '', $user_email = '', $errors = '') {
 	$user_email = $filtered_results['user_email'];
 	$errors = $filtered_results['errors'];
 	?>
-	<div class="avia_textblock" itemprop="text">
-		<h2><?php printf( __( 'Create your account on %s', 'join-my-multisite' ), $current_site->site_name ) ?></h2>
-	</div>
+	<!--<div class="avia_textblock" itemprop="text">
+		<h3><?php printf( __( 'Create your account on %s', 'join-my-multisite' ), $current_site->site_name ) ?></h2>
+	</div>-->
 	<form id="setupform" method="post" action="<?php echo $goto; ?>">
 		<input type="hidden" name="stage" value="validate-user-signup" />
 		<?php
 		//duplicate_hook
 		do_action( 'signup_hidden_fields', 'validate-user' );
 		?>
-		<div class="av_promobox avia-button-yes avia-builder-el-16 el_after_av_one_half avia-builder-el-last ">
+		<div class="av_promobox avia-button-yes avia-builder-el-16 el_after_av_one_half avia-builder-el-last" style="margin-top: 0px;">
 			<div class="avia-promocontent">
 				<?php show_user_form($user_name, $user_email, $errors); ?>
 				<input id="signupblog" type="hidden" name="signup_for" value="user" />
