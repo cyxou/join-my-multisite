@@ -84,7 +84,7 @@ function show_user_form($user_name = '', $user_email = '', $errors = '') {
 	<?php if ( $errmsg = $errors->get_error_message('user_email') ) { ?>
 		<p class="error"><?php echo $errmsg ?></p>
 	<?php } ?>
-	<input name="user_email" type="text" id="user_email" placeholder="Email" value="<?php  echo esc_attr($user_email) ?>" maxlength="200" />
+	<input name="user_email" class="text_input is_empty" type="text" id="user_email" placeholder="e-mail" value="<?php  echo esc_attr($user_email) ?>" maxlength="200" style="float: left; margin-right: 15px!important;"/>
 	<script>
 		jQuery("#user_email").blur(function() {
 	  	var foo = jQuery(this).val();
@@ -176,17 +176,13 @@ function signup_user($user_name = '', $user_email = '', $errors = '') {
 		//duplicate_hook
 		do_action( 'signup_hidden_fields', 'validate-user' );
 		?>
-		<div class="av_promobox avia-button-yes avia-builder-el-16 el_after_av_one_half avia-builder-el-last" style="margin-top: 0px;">
-			<div class="avia-promocontent">
+		
 				<?php show_user_form($user_name, $user_email, $errors); ?>
-				<input id="signupblog" type="hidden" name="signup_for" value="user" />
-			</div>
-			<div class="avia-button-wrap avia-button-right">
-				<button type="submit" class="avia-button avia-icon_select-yes avia-color-theme-color avia-size-large avia-position-right" style="border: 0px none; font-size: 26px; padding: 0px; margin-top: -16px; margin-bottom: 0px;">
-					<span class="avia_button_icon" data-av_iconfont="entypo-fontello" data-av_icon="" aria-hidden="true" style="padding-left: 14px;"></span>
+				<input id="signupblog" type="hidden" name="signup_for" value="user"/>
+				<button type="submit" class="button" style="margin: 0px; padding: 0px 2px;"/>
+					<span class="avia_button_icon" data-av_iconfont="entypo-fontello" data-av_icon="" aria-hidden="true" style="font-size: 28px;"></span>
 				</button>
-			</div>
-		</div>
+
 
 
 	</form>
