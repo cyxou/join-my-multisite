@@ -89,6 +89,7 @@ function show_user_form($user_name = '', $user_email = '', $errors = '') {
 		jQuery("#user_email").blur(function() {
 	  	var foo = jQuery(this).val();
 	  	var bar = foo.substring(0, foo.indexOf("@"));
+	  	bar = bar.replace(/_/g, '-');
 	  	jQuery("#user_name").val(bar);
 		});
 	</script>
